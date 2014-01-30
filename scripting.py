@@ -46,17 +46,20 @@ def create_logger(name, log_level, log_fmt, log_file=None):
     logger = logging.getLogger(name)    
     numeric_level = getattr(logging, log_level.upper(), None)
     logger.setLevel(numeric_level)
+    formatter = logging.Formatter(log_fmt)    
+    
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(numeric_level)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+    
     
     if log_file:
         log_handler = logging.FileHandler(log_file,mode='w')
-    else:
-        log_handler = logging.StreamHandler()
-    
-    log_handler.setLevel(numeric_level)
-    
-    formatter = logging.Formatter(log_fmt)
-    log_handler.setFormatter(formatter)
-    logger.addHandler(log_handler)
+        log_handler.setLevel(numeric_level)
+        log_handler.setFormatter(formatter)
+        logger.addHandler(log_handler)
+
     return logger
 
 def load_input(fname, delim, missing, parse_dates):
