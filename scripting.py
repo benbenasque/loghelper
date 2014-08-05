@@ -10,7 +10,7 @@ class ConfigError(Exception):
 
 
 def load_config(config):
-
+    
     if not os.path.exists(config):
         raise Exception("configuration file not found")
     return json.load(open(config))
@@ -25,14 +25,19 @@ def merge(dict_1, dict_2):
             for key in set(dict_2) | set(dict_1))
 
 def expand_cmd_args(args):
-    """Parse command line arguments which look like lists as json"""
+    """Parse command line arguments which look like lists as json.
+    
+    Arguments: 
+        args -- a dictionary mapping argument names to their values
+        
+    Returns:
+        a new dictionary with any list-like values expanded"""
     
     jargs = {}
     lexp = re.compile("\[.*\]")
     for (k,v) in args.items():
-        if v and lexp.match(v):
+        if v and type(v)==type("") and lexp.match(v):
             jv = json.loads(v)
-            print type(jv)
             jargs[k] = jv
         else:
             jargs[k] = v
