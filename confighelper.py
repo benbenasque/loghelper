@@ -341,7 +341,7 @@ def choose(key, dict1, dict2):
         return v2
 
 def parse_cmd_args(args, format="json"):
-    """Parse command line arguments which look like lists as json/yaml
+    """Parse command line arguments as json/yaml
     
     Arguments: 
         args -- a dictionary mapping argument names to their values
@@ -355,6 +355,7 @@ def parse_cmd_args(args, format="json"):
     lexpr =  re.compile("\[.*\]")
     dexpr =  re.compile("\{.*\}")
 
+    
     if format in JSON:
         import json
     elif format in YAML:
