@@ -33,17 +33,6 @@ def create(name, log_level=None, log_fmt=None, log_file=None):
 
     return logger
     
-def file_handler(log_file, level, fmt):
-    numeric_level = getattr(logging, level.upper(), None)
-    formatter = logging.Formatter(fmt)    
-
-    log_handler = logging.FileHandler(log_file,mode='w')
-    log_handler.setLevel(numeric_level)
-    log_handler.setFormatter(formatter)
-    return log_handler
-
-
-
 
 def get(name):
     return logging.getLogger(name)
