@@ -24,7 +24,6 @@ def create(name, log_level=None, log_fmt=None, log_file=None):
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
     
-    
     if log_file:
         log_handler = logging.FileHandler(log_file,mode='w')
         log_handler.setLevel(numeric_level)
@@ -32,6 +31,13 @@ def create(name, log_level=None, log_fmt=None, log_file=None):
         logger.addHandler(log_handler)
 
     return logger
+
+def file_handler(log_file, level, formatter, mode='w'):
+    numeric_level = getattr(logging, level.upper(), None)
+    handler = logging.FileHandler(log_file,mode='w')
+    handler.setLevel(numeric_level)
+    handler.setFormatter(formatter)
+    return handler
     
 
 def get(name):
